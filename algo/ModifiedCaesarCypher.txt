@@ -1,0 +1,20 @@
+We all know in Caesar cipher we replace each alphabet
+ with other alphabet which is 3 positions down the order. 
+Modified Caesar cipher is same as actual Caesar cipher 
+with little modification.
+We are now saying that alphabet A will not necessarily
+ replace by alphabet D. It can be replaced by any other
+ valid alphabet i.e. by E,F,G and so on, there are 25 other
+ alphabets with whom we can replace alphabet A.
+ Once replacement scheme is decided then it would be
+ constant and will be use to replace other alphabets in
+ that message.
+There are only 25 other combinations because there are
+ 26 alphabets in English and it doesn’t make sense to 
+replace it with himself.
+Hence to break modified Caesar cipher our earlier algorithm
+would not work but it is still weak encryption method.
+Caesar cipher modification is done by replacing the alphabet
+ into two parts, the vocals were replaced with the alphabet 
+vocal too,and the consonant alphabet was replaced with a
+ consonantal alphabet.
