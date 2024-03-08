@@ -4,7 +4,7 @@ public class CaesarCipherAlgorithm implements CryptoAlgorithm {
     private static final int SHIFT = 3; // Example shift value
 
     @Override
-    public String encrypt(String plaintext, String key) {
+    public String encrypt(String plaintext) {
         StringBuilder encryptedText = new StringBuilder();
         for (char c : plaintext.toCharArray()) {
             if (Character.isLetter(c)) {
@@ -19,7 +19,7 @@ public class CaesarCipherAlgorithm implements CryptoAlgorithm {
     }
 
     @Override
-    public String decrypt(String ciphertext, String key) {
+    public String decrypt(String ciphertext) {
         StringBuilder decryptedText = new StringBuilder();
         for (char c : ciphertext.toCharArray()) {
             if (Character.isLetter(c)) {

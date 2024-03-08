@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 public class ModifiedCaesarCipherAlgorithm implements CryptoAlgorithm {
 
     @Override
-    public String encrypt(String plaintext, String key) {
+    public String encrypt(String plaintext) {
         int shift = Integer.parseInt(JOptionPane.showInputDialog("Enter the Key : "));
         StringBuilder encryptedText = new StringBuilder();
         for (char c : plaintext.toCharArray()) {
@@ -21,7 +21,7 @@ public class ModifiedCaesarCipherAlgorithm implements CryptoAlgorithm {
     }
 
     @Override
-    public String decrypt(String ciphertext, String key) {
+    public String decrypt(String ciphertext) {
         int shift = Integer.parseInt(JOptionPane.showInputDialog("Enter the Key : "));
         StringBuilder decryptedText = new StringBuilder();
         for (char c : ciphertext.toCharArray()) {

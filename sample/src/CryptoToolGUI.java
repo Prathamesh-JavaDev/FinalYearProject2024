@@ -138,7 +138,7 @@ public class CryptoToolGUI extends JFrame {
         try {
             CryptoAlgorithm algorithm = instantiateAlgorithm();
             String inputText = inputTextArea.getText();
-            String encryptedText = algorithm.encrypt(inputText, "key"); // Change "key" to the actual key
+            String encryptedText = algorithm.encrypt(inputText);
             outputTextArea.setText(encryptedText);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error encrypting text: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -151,7 +151,7 @@ public class CryptoToolGUI extends JFrame {
         try {
             CryptoAlgorithm algorithm = instantiateAlgorithm();
             String inputText = inputTextArea.getText();
-            String decryptedText = algorithm.decrypt(inputText, "key"); // Change "key" to the actual key
+            String decryptedText = algorithm.decrypt(inputText);
             outputTextArea.setText(decryptedText);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error decrypting text: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

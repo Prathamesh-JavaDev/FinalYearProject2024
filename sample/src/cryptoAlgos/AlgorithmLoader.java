@@ -7,6 +7,7 @@ import java.util.Enumeration;
 import java.util.List;
 
 public class AlgorithmLoader {
+    @SuppressWarnings("unchecked")
     public static List<Class<? extends CryptoAlgorithm>> loadAlgorithmClasses() {
         List<Class<? extends CryptoAlgorithm>> classes = new ArrayList<>();
 
