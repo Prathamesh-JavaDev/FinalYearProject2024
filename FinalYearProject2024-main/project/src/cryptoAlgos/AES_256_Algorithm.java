@@ -21,6 +21,9 @@ public class AES_256_Algorithm implements CryptoAlgorithm {
                 throw new RuntimeException("Encryption key cannot be empty");
             }
 
+            //Timer starts here
+            long startTime = System.nanoTime();
+
             // Check if text is empty, if so, prompt for file input
             if (text.isEmpty()) {
                 byte[] data = readFile();
@@ -35,6 +38,12 @@ public class AES_256_Algorithm implements CryptoAlgorithm {
 
                 // Prompt the user to save the encrypted data to a file
                 saveToFile(encryptedBytes);
+
+                //Timer for File Encryption ends here
+                long endTime = System.nanoTime();
+                double elapsedTimeMilliseconds = (endTime - startTime) / 1_000_000.0;
+                System.out.println("(AES 256-Bits) Encryption Time: " + elapsedTimeMilliseconds + " milliseconds");
+
                 return null; // Return null as the output is saved to a file
             } else {
                 // Pad the text to ensure it meets the block size requirement
@@ -46,6 +55,11 @@ public class AES_256_Algorithm implements CryptoAlgorithm {
 
                 byte[] encryptedBytes = cipher.doFinal(paddedText.getBytes(StandardCharsets.UTF_8));
 
+                //Timer for Text Encryption ends here
+                long endTime = System.nanoTime();
+                double elapsedTimeMilliseconds = (endTime - startTime) / 1_000_000.0;
+                System.out.println("(AES 256-Bits) Encryption Time: " + elapsedTimeMilliseconds + " milliseconds");
+
                 return Base64.getEncoder().encodeToString(encryptedBytes);
             }
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
@@ -55,50 +69,66 @@ public class AES_256_Algorithm implements CryptoAlgorithm {
     }
 
     @Override
-public String decrypt(String encryptedText) {
-    try {
-        String key = JOptionPane.showInputDialog(null, "Enter 256-bit decryption key (16 chars):");
-        if (key == null || key.isEmpty()) {
-            throw new RuntimeException("Decryption key cannot be empty");
-        }
-
-        // If encrypted text is empty, prompt for file input
-        if (encryptedText.isEmpty()) {
-            byte[] encryptedBytes = readFile();
-            if (encryptedBytes == null) {
-                return null; // File selection cancelled
+    public String decrypt(String encryptedText) {
+        try {
+            String key = JOptionPane.showInputDialog(null, "Enter 256-bit decryption key (16 chars):");
+            if (key == null || key.isEmpty()) {
+                throw new RuntimeException("Decryption key cannot be empty");
             }
-            Cipher cipher = Cipher.getInstance(ALGORITHM);
-            SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), ALGORITHM);
-            cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
-            byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
 
-            // Prompt the user to save the decrypted data to a file
-            saveToFile(decryptedBytes);
-            return null; // Return null as the output is saved to a file
-        } else {
-            // If encrypted text is provided as input, perform decryption
-            Cipher cipher = Cipher.getInstance(ALGORITHM);
-            SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), ALGORITHM);
-            cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
+            //Timer starts here
+            long startTime = System.nanoTime();
 
-            byte[] decodedBytes = Base64.getDecoder().decode(encryptedText);
-            byte[] decryptedBytes = cipher.doFinal(decodedBytes);
+            // If encrypted text is empty, prompt for file input
+            if (encryptedText.isEmpty()) {
+                byte[] encryptedBytes = readFile();
+                if (encryptedBytes == null) {
+                    return null; // File selection cancelled
+                }
+                Cipher cipher = Cipher.getInstance(ALGORITHM);
+                SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), ALGORITHM);
+                cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
+                byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
 
-            // Return decrypted text as string
-            return removePadding(decryptedBytes);
+                // Prompt the user to save the decrypted data to a file
+                saveToFile(decryptedBytes);
+
+                //Timer for File Decryption ends here
+                long endTime = System.nanoTime();
+                double elapsedTimeMilliseconds = (endTime - startTime) / 1_000_000.0;
+                System.out.println("(AES 256-Bits) Decryption Time: " + elapsedTimeMilliseconds + " milliseconds");
+
+                return null; // Return null as the output is saved to a file
+            } else {
+                // If encrypted text is provided as input, perform decryption
+                Cipher cipher = Cipher.getInstance(ALGORITHM);
+                SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), ALGORITHM);
+                cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
+
+                byte[] decodedBytes = Base64.getDecoder().decode(encryptedText);
+                byte[] decryptedBytes = cipher.doFinal(decodedBytes);
+
+                // Return decrypted text as string
+                String decryptedText = removePadding(decryptedBytes);
+
+                //Timer for Text Decryption ends here
+                long endTime = System.nanoTime();
+                double elapsedTimeMilliseconds = (endTime - startTime) / 1_000_000.0;
+                System.out.println("(AES 256-Bits) Decryption Time: " + elapsedTimeMilliseconds + " milliseconds");
+
+                return decryptedText;
+            }
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
+            e.printStackTrace();
+            return null;
         }
-    } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
-        e.printStackTrace();
-        return null;
     }
-}
 
     // Helper method to remove padding from decrypted text
-private String removePadding(byte[] decryptedBytes) {
-    int paddingLength = decryptedBytes[decryptedBytes.length - 1];
-    return new String(decryptedBytes, 0, decryptedBytes.length - paddingLength, StandardCharsets.UTF_8);
-}
+    private String removePadding(byte[] decryptedBytes) {
+        int paddingLength = decryptedBytes[decryptedBytes.length - 1];
+        return new String(decryptedBytes, 0, decryptedBytes.length - paddingLength, StandardCharsets.UTF_8);
+    }
 
     // Helper method to pad the text to meet the block size requirement
     private String padText(String text) {
@@ -110,7 +140,6 @@ private String removePadding(byte[] decryptedBytes) {
         }
         return paddedText.toString();
     }
-
 
     // Helper method to save data to a file
     private void saveToFile(byte[] data) {

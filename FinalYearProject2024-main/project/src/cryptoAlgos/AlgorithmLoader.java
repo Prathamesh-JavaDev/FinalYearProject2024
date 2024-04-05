@@ -1,6 +1,7 @@
 package cryptoAlgos;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -39,5 +40,18 @@ public class AlgorithmLoader {
         }
 
         return classes;
+    }
+
+    public static CryptoAlgorithm instantiateAlgorithm(String algorithmName) {
+        // Assuming algorithmName is the fully qualified class name of the algorithm
+        try {
+            Class<?> algorithmClass = Class.forName(algorithmName);
+            CryptoAlgorithm algorithmInstance = (CryptoAlgorithm) algorithmClass.getDeclaredConstructor().newInstance();
+            return algorithmInstance;
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+            // Handle error: class not found, instantiation error, etc.
+            e.printStackTrace();
+            return null;
+        }
     }
 }
