@@ -1,2 +1,2 @@
-<h1> This is a StandAlone Application in Java named as -> Crypto-Tool </h1>
+<h1> Crypto-Tool (Java StandAlone Application) </h1>
 
