@@ -1,3 +1,5 @@
+package gui;
+
 import javax.swing.*;
 import cryptoAlgos.AlgorithmLoader;
 import cryptoAlgos.CryptoAlgorithm;
