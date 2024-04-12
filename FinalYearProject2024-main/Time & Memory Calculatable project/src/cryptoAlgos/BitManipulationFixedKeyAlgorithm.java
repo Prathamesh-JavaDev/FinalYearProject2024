@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.io.*;
 
 public class BitManipulationFixedKeyAlgorithm implements CryptoAlgorithm {
-    private static final int CONSTANT = 255;
+    private static final int CONSTANT = 552;
 
     @Override
     public String encrypt(String plaintext) {
