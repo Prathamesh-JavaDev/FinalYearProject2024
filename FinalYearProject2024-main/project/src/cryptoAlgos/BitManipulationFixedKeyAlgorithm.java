@@ -11,21 +11,15 @@ public class BitManipulationFixedKeyAlgorithm implements CryptoAlgorithm {
         
         // If input text is empty, prompt for file input
         if (plaintext.isEmpty()) {
-            //Timer starts here
-            long startTime = System.nanoTime();
 
             byte[] encryptedData = encryptFile(selectFile("Select input file for encryption"));
+
             if (encryptedData != null) {
                 saveToFile(encryptedData, selectFile("Select output file to save encrypted data"));
             }
-            //Timer ends here
-            long endTime = System.nanoTime();
-            long elapsedTime = (endTime - startTime) / 1000; // Convert to microseconds
-            System.out.println("(Bit Manipulation) Encryption Time: " + elapsedTime + " microseconds");
+
             return null; // Return null as the output is saved to a file
         } else {
-            //Timer starts here
-            long startTime = System.nanoTime();
             // Encryption logic for text input
             byte[] byteArray = plaintext.getBytes();
             int[] intArray = new int[byteArray.length];
@@ -42,10 +36,7 @@ public class BitManipulationFixedKeyAlgorithm implements CryptoAlgorithm {
             for (int i : intArray) {
                 encryptedText.append((char) i);
             }
-            //Timer ends here
-            long endTime = System.nanoTime();
-            long elapsedTime = (endTime - startTime) / 1000; // Convert to microseconds
-            System.out.println("(Bit Manipulation) Encryption Time: " + elapsedTime + " microseconds");
+            
             return encryptedText.toString();
         }
     }
@@ -55,20 +46,15 @@ public class BitManipulationFixedKeyAlgorithm implements CryptoAlgorithm {
 
         // If input text is empty, prompt for file input
         if (ciphertext.isEmpty()) {
-            //Timer starts here
-            long startTime = System.nanoTime();
 
             byte[] decryptedData = decryptFile(selectFile("Select input file for decryption"));
             if (decryptedData != null) {
                 saveToFile(decryptedData, selectFile("Select output file to save decrypted data"));
             }
-            long endTime = System.nanoTime();
-            long elapsedTime = (endTime - startTime) / 1000; // Convert to microseconds
-            System.out.println("(Bit Manipulation) Decryption Time: " + elapsedTime + " microseconds");
+            
             return null; // Return null as the output is saved to a file
         } else {
-            //Timer starts here
-            long startTime = System.nanoTime();
+            
             // Decryption logic for text input
             int[] intArray = new int[ciphertext.length()];
             for (int i = 0; i < ciphertext.length(); i++) {
@@ -84,15 +70,13 @@ public class BitManipulationFixedKeyAlgorithm implements CryptoAlgorithm {
             for (int i : intArray) {
                 decryptedText.append((char) i);
             }
-            long endTime = System.nanoTime();
-            long elapsedTime = (endTime - startTime) / 1000; // Convert to microseconds
-            System.out.println("(Bit Manipulation) Decryption Time: " + elapsedTime + " microseconds");
+            
             return decryptedText.toString();
         }
     }
 
     public byte[] encryptFile(File inputFile) {
-        long startTime = System.nanoTime();
+        
         // Encryption logic for file input
         try {
             FileInputStream fis = new FileInputStream(inputFile);
@@ -104,9 +88,7 @@ public class BitManipulationFixedKeyAlgorithm implements CryptoAlgorithm {
             }
             fis.close();
             bos.close();
-            long endTime = System.nanoTime();
-            long elapsedTime = (endTime - startTime) / 1000; // Convert to microseconds
-            System.out.println("Encryption Time: " + elapsedTime + " microseconds");
+            
             return bos.toByteArray();
         } catch (IOException e) {
             e.printStackTrace();
@@ -115,12 +97,10 @@ public class BitManipulationFixedKeyAlgorithm implements CryptoAlgorithm {
     }
 
     public byte[] decryptFile(File inputFile) {
-        long startTime = System.nanoTime();
+       
         // Decryption logic for file input is the same as encryption
         byte[] decryptedData = encryptFile(inputFile);
-        long endTime = System.nanoTime();
-        long elapsedTime = (endTime - startTime) / 1000; // Convert to microseconds
-        System.out.println("Decryption Time: " + elapsedTime + " microseconds");
+        
         return decryptedData;
     }
 

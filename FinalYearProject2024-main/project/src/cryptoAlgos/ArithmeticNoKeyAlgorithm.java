@@ -9,24 +9,14 @@ public class ArithmeticNoKeyAlgorithm implements CryptoAlgorithm {
     public String encrypt(String plaintext) {
         // If input text is empty, prompt for file input
         if (plaintext.isEmpty()) {
-            //Timer starts here
-            long startTime = System.nanoTime();
 
             byte[] encryptedData = encryptFile(selectFile("Select input file for encryption"));
-
-            //Timer ends here
-            long endTime = System.nanoTime();
-            long elapsedTime = (endTime - startTime) / 1000; // Convert to microseconds
-            System.out.println("(Arithmetic Algorithm) Encryption Time: " + elapsedTime + " microseconds");
 
             if (encryptedData != null) {
                 saveToFile(encryptedData, selectFile("Select output file to save encrypted data"));
             }
             return null; // Return null as the output is saved to a file
         } else {
-            //Timer starts here
-            long startTime = System.nanoTime();
-
             // Encryption logic for text input
             byte[] byteArray = plaintext.getBytes();
             int[] intArray = new int[byteArray.length];
@@ -58,11 +48,6 @@ public class ArithmeticNoKeyAlgorithm implements CryptoAlgorithm {
                 encryptedText.append((char) value);
             }
 
-            //Timer ends here
-            long endTime = System.nanoTime();
-            long elapsedTime = (endTime - startTime) / 1000; // Convert to microseconds
-            System.out.println("(Arithmetic Algorithm) Encryption Time: " + elapsedTime + " microseconds");
-
             return encryptedText.toString();
         }
     }
@@ -71,24 +56,14 @@ public class ArithmeticNoKeyAlgorithm implements CryptoAlgorithm {
     public String decrypt(String ciphertext) {
         // If input text is empty, prompt for file input
         if (ciphertext.isEmpty()) {
-            //Timer starts here
-            long startTime = System.nanoTime();
 
             byte[] decryptedData = decryptFile(selectFile("Select input file for decryption"));
-
-            //Timer ends here
-            long endTime = System.nanoTime();
-            long elapsedTime = (endTime - startTime) / 1000; // Convert to microseconds
-            System.out.println("(Arithmetic Algorithm) Decryption Time: " + elapsedTime + " microseconds");
 
             if (decryptedData != null) {
                 saveToFile(decryptedData, selectFile("Select output file to save decrypted data"));
             }
             return null; // Return null as the output is saved to a file
         } else {
-            //Timer starts here
-            long startTime = System.nanoTime();
-
             // Decryption logic for text input
             int[] intArray = new int[ciphertext.length()];
 
@@ -116,12 +91,7 @@ public class ArithmeticNoKeyAlgorithm implements CryptoAlgorithm {
             for (int i = 1; i < intArray.length; i++) {
                 intArray[i] = intArray[i] + intArray[i - 1];
             }
-
-            //Timer ends here
-            long endTime = System.nanoTime();
-            long elapsedTime = (endTime - startTime) / 1000; // Convert to microseconds
-            System.out.println("(Arithmetic Algorithm) Decryption Time: " + elapsedTime + " microseconds");
-
+            
             //Decrypted txt to console...
             StringBuilder decryptedText = new StringBuilder();
             for (int value : intArray) {

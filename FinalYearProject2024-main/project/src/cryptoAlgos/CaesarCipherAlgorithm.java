@@ -2,7 +2,6 @@ package cryptoAlgos;
 
 import javax.swing.*;
 import java.io.*;
-import java.util.concurrent.TimeUnit;
 
 public class CaesarCipherAlgorithm implements CryptoAlgorithm {
     private static final int SHIFT = 3; // Fixed shift value
@@ -19,11 +18,9 @@ public class CaesarCipherAlgorithm implements CryptoAlgorithm {
             saveToFile(encryptedData);
             return null; // Return null as the output is saved to a file
         } else {
-            long startTime = System.nanoTime();
+            
             String encryptedText = performEncryption(plaintext);
-            long endTime = System.nanoTime();
-            long elapsedTime = TimeUnit.NANOSECONDS.toMillis(endTime - startTime);
-            System.out.println("(Caesar Cipher) String Encryption Time: " + elapsedTime + " milliseconds");
+            
             return encryptedText;
         }
     }
@@ -40,18 +37,16 @@ public class CaesarCipherAlgorithm implements CryptoAlgorithm {
             saveToFile(decryptedData);
             return null; // Return null as the output is saved to a file
         } else {
-            long startTime = System.nanoTime();
+            
             String decryptedText = performDecryption(ciphertext);
-            long endTime = System.nanoTime();
-            long elapsedTime = TimeUnit.NANOSECONDS.toMillis(endTime - startTime);
-            System.out.println("(Caesar Cipher) String Decryption Time: " + elapsedTime + " milliseconds");
+            
             return decryptedText;
         }
     }
 
     // Helper method to perform encryption on byte array
     private byte[] performEncryption(byte[] data) {
-        long startTime = System.nanoTime();
+       
         byte[] encryptedData = new byte[data.length];
         for (int i = 0; i < data.length; i++) {
             byte b = data[i];
@@ -63,15 +58,13 @@ public class CaesarCipherAlgorithm implements CryptoAlgorithm {
                 encryptedData[i] = b;
             }
         }
-        long endTime = System.nanoTime();
-        long elapsedTime = TimeUnit.NANOSECONDS.toMillis(endTime - startTime);
-        System.out.println("(Caesar Cipher) Encryption Time: " + elapsedTime + " milliseconds");
+        
         return encryptedData;
     }
 
     // Helper method to perform decryption on byte array
     private byte[] performDecryption(byte[] data) {
-        long startTime = System.nanoTime();
+        
         byte[] decryptedData = new byte[data.length];
         for (int i = 0; i < data.length; i++) {
             byte b = data[i];
@@ -83,9 +76,7 @@ public class CaesarCipherAlgorithm implements CryptoAlgorithm {
                 decryptedData[i] = b;
             }
         }
-        long endTime = System.nanoTime();
-        long elapsedTime = TimeUnit.NANOSECONDS.toMillis(endTime - startTime);
-        System.out.println("(Caesar Cipher) Decryption Time: " + elapsedTime + " milliseconds");
+        
         return decryptedData;
     }
 

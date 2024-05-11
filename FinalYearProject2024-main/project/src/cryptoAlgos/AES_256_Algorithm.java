@@ -20,10 +20,6 @@ public class AES_256_Algorithm implements CryptoAlgorithm {
             if (key == null || key.isEmpty()) {
                 throw new RuntimeException("Encryption key cannot be empty");
             }
-
-            //Timer starts here
-            long startTime = System.nanoTime();
-
             // Check if text is empty, if so, prompt for file input
             if (text.isEmpty()) {
                 byte[] data = readFile();
@@ -39,11 +35,6 @@ public class AES_256_Algorithm implements CryptoAlgorithm {
                 // Prompt the user to save the encrypted data to a file
                 saveToFile(encryptedBytes);
 
-                //Timer for File Encryption ends here
-                long endTime = System.nanoTime();
-                double elapsedTimeMilliseconds = (endTime - startTime) / 1_000_000.0;
-                System.out.println("(AES 256-Bits) Encryption Time: " + elapsedTimeMilliseconds + " milliseconds");
-
                 return null; // Return null as the output is saved to a file
             } else {
                 // Pad the text to ensure it meets the block size requirement
@@ -54,11 +45,6 @@ public class AES_256_Algorithm implements CryptoAlgorithm {
                 cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
 
                 byte[] encryptedBytes = cipher.doFinal(paddedText.getBytes(StandardCharsets.UTF_8));
-
-                //Timer for Text Encryption ends here
-                long endTime = System.nanoTime();
-                double elapsedTimeMilliseconds = (endTime - startTime) / 1_000_000.0;
-                System.out.println("(AES 256-Bits) Encryption Time: " + elapsedTimeMilliseconds + " milliseconds");
 
                 return Base64.getEncoder().encodeToString(encryptedBytes);
             }
@@ -75,10 +61,6 @@ public class AES_256_Algorithm implements CryptoAlgorithm {
             if (key == null || key.isEmpty()) {
                 throw new RuntimeException("Decryption key cannot be empty");
             }
-
-            //Timer starts here
-            long startTime = System.nanoTime();
-
             // If encrypted text is empty, prompt for file input
             if (encryptedText.isEmpty()) {
                 byte[] encryptedBytes = readFile();
@@ -93,11 +75,6 @@ public class AES_256_Algorithm implements CryptoAlgorithm {
                 // Prompt the user to save the decrypted data to a file
                 saveToFile(decryptedBytes);
 
-                //Timer for File Decryption ends here
-                long endTime = System.nanoTime();
-                double elapsedTimeMilliseconds = (endTime - startTime) / 1_000_000.0;
-                System.out.println("(AES 256-Bits) Decryption Time: " + elapsedTimeMilliseconds + " milliseconds");
-
                 return null; // Return null as the output is saved to a file
             } else {
                 // If encrypted text is provided as input, perform decryption
@@ -110,11 +87,6 @@ public class AES_256_Algorithm implements CryptoAlgorithm {
 
                 // Return decrypted text as string
                 String decryptedText = removePadding(decryptedBytes);
-
-                //Timer for Text Decryption ends here
-                long endTime = System.nanoTime();
-                double elapsedTimeMilliseconds = (endTime - startTime) / 1_000_000.0;
-                System.out.println("(AES 256-Bits) Decryption Time: " + elapsedTimeMilliseconds + " milliseconds");
 
                 return decryptedText;
             }

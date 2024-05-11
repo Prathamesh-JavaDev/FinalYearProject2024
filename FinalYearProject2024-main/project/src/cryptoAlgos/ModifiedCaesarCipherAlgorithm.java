@@ -2,7 +2,6 @@ package cryptoAlgos;
 
 import javax.swing.*;
 import java.io.*;
-import java.util.concurrent.TimeUnit;
 
 public class ModifiedCaesarCipherAlgorithm implements CryptoAlgorithm {
 
@@ -47,7 +46,7 @@ public class ModifiedCaesarCipherAlgorithm implements CryptoAlgorithm {
     // Helper method to perform encryption on byte array
     private byte[] performEncryption(byte[] data) {
         int SHIFT = Integer.parseInt(JOptionPane.showInputDialog("Enter the Key for shift : "));
-        long startTime = System.nanoTime();
+        
         byte[] encryptedData = new byte[data.length];
         for (int i = 0; i < data.length; i++) {
             byte b = data[i];
@@ -59,16 +58,14 @@ public class ModifiedCaesarCipherAlgorithm implements CryptoAlgorithm {
                 encryptedData[i] = b;
             }
         }
-        long endTime = System.nanoTime();
-        long elapsedTime = TimeUnit.NANOSECONDS.toMillis(endTime - startTime);
-        System.out.println("(Modified Caesar Cipher) Encryption Time: " + elapsedTime + " milliseconds");
+        
         return encryptedData;
     }
 
     // Helper method to perform decryption on byte array
     private byte[] performDecryption(byte[] data) {
         int SHIFT = Integer.parseInt(JOptionPane.showInputDialog("Enter the Key for Reshift : "));
-        long startTime = System.nanoTime();
+        
         byte[] decryptedData = new byte[data.length];
         for (int i = 0; i < data.length; i++) {
             byte b = data[i];
@@ -80,9 +77,7 @@ public class ModifiedCaesarCipherAlgorithm implements CryptoAlgorithm {
                 decryptedData[i] = b;
             }
         }
-        long endTime = System.nanoTime();
-        long elapsedTime = TimeUnit.NANOSECONDS.toMillis(endTime - startTime);
-        System.out.println("(Modified Caesar Cipher) Decryption Time: " + elapsedTime + " milliseconds");
+        
         return decryptedData;
     }
 
@@ -125,7 +120,7 @@ public class ModifiedCaesarCipherAlgorithm implements CryptoAlgorithm {
     // Helper method to perform encryption on string
     private String performEncryption(String plaintext) {
         int SHIFT = Integer.parseInt(JOptionPane.showInputDialog("Enter the Key for shift : "));
-        long startTime = System.nanoTime();
+        
         StringBuilder encryptedText = new StringBuilder();
         for (char c : plaintext.toCharArray()) {
             if (Character.isLetter(c)) {
@@ -136,16 +131,14 @@ public class ModifiedCaesarCipherAlgorithm implements CryptoAlgorithm {
                 encryptedText.append(c);
             }
         }
-        long endTime = System.nanoTime();
-        long elapsedTime = TimeUnit.NANOSECONDS.toMillis(endTime - startTime);
-        System.out.println("(Modified Caesar Cipher) String Encryption Time: " + elapsedTime + " milliseconds");
+        
         return encryptedText.toString();
     }
 
     // Helper method to perform decryption on string
     private String performDecryption(String ciphertext) {
         int SHIFT = Integer.parseInt(JOptionPane.showInputDialog("Enter the Key for Reshift : "));
-        long startTime = System.nanoTime();
+        
         StringBuilder decryptedText = new StringBuilder();
         for (char c : ciphertext.toCharArray()) {
             if (Character.isLetter(c)) {
@@ -157,9 +150,7 @@ public class ModifiedCaesarCipherAlgorithm implements CryptoAlgorithm {
             }
         }
 
-        long endTime = System.nanoTime();
-        long elapsedTime = TimeUnit.NANOSECONDS.toMillis(endTime - startTime);
-        System.out.println("(Modified Caesar Cipher) String Decryption Time: " + elapsedTime + " milliseconds");
+        
         return decryptedText.toString();
     }
 }

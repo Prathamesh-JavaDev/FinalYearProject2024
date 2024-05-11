@@ -35,19 +35,11 @@ public class RSA_2048_Algorithm implements CryptoAlgorithm {
                     key = generateAndSaveKeyPair().getPublic();
                 }
 
-                //Timer starts here
-                long startTime = System.nanoTime();
-
                 Cipher cipher = Cipher.getInstance(ALGORITHM);
                 cipher.init(Cipher.ENCRYPT_MODE, key);
 
                 byte[] encryptedBytes = cipher.doFinal(data);
                 saveToFile(encryptedBytes, chooseOutputFile());
-
-                //Timer for File Encryption ends here
-                long endTime = System.nanoTime();
-                long elapsedTime = endTime - startTime;
-                System.out.println("(RSA 2048-Bits) Encryption Time: " + (elapsedTime / 1_000_000) + " milliseconds");
 
                 return null; // Return null as the output is saved to a file
             } else {
@@ -60,18 +52,10 @@ public class RSA_2048_Algorithm implements CryptoAlgorithm {
                     key = generateAndSaveKeyPair().getPublic();
                 }
 
-                //Timer starts here
-                long startTime = System.nanoTime();
-
                 Cipher cipher = Cipher.getInstance(ALGORITHM);
                 cipher.init(Cipher.ENCRYPT_MODE, key);
 
                 byte[] encryptedBytes = cipher.doFinal(text.getBytes(StandardCharsets.UTF_8));
-
-                //Timer for Text Encryption ends here
-                long endTime = System.nanoTime();
-                long elapsedTime = endTime - startTime;
-                System.out.println("(RSA 2048-Bits) Encryption Time: " + (elapsedTime / 1_000_000) + " milliseconds");
 
                 return Base64.getEncoder().encodeToString(encryptedBytes);
             }
@@ -95,39 +79,22 @@ public class RSA_2048_Algorithm implements CryptoAlgorithm {
                 // Ask user to specify key file
                 Key key = readKey();
 
-                //Timer starts here
-                long startTime = System.nanoTime();
-
                 Cipher cipher = Cipher.getInstance(ALGORITHM);
                 cipher.init(Cipher.DECRYPT_MODE, key);
 
                 byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
                 saveToFile(decryptedBytes, chooseOutputFile());
 
-                //Timer for File Decryption ends here
-                long endTime = System.nanoTime();
-                long elapsedTime = endTime - startTime;
-                System.out.println("(RSA 2048-Bits) Decryption Time: " + (elapsedTime / 1_000_000) + " milliseconds");
-
                 return null; // Return null as the output is saved to a file
             } else {
                 // Ask user to specify key file
                 Key key = readKey();
-
-                //Timer starts here
-                long startTime = System.nanoTime();
 
                 Cipher cipher = Cipher.getInstance(ALGORITHM);
                 cipher.init(Cipher.DECRYPT_MODE, key);
 
                 byte[] decodedBytes = Base64.getDecoder().decode(encryptedText);
                 byte[] decryptedBytes = cipher.doFinal(decodedBytes);
-
-
-                //Timer for text Decryption Ends here
-                long endTime = System.nanoTime();
-                long elapsedTime = endTime - startTime;
-                System.out.println("(RSA 2048-Bits) Decryption Time: " + (elapsedTime / 1_000_000) + " milliseconds");
 
                 return new String(decryptedBytes, StandardCharsets.UTF_8);
             }
