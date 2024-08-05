@@ -1,5 +1,5 @@
 <h1> Crypto-Tool (Java StandAlone Application) </h1>
-<br>
+
 <h3>Team Members :</h3>
 <h5>* Prathamesh Khandelwal</h5>
 <h5>* Pranoti Pohokar</h5>
